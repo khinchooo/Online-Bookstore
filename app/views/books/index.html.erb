@@ -1,8 +1,6 @@
-<h1 class="text-center">Book Lists</h1>
-
 <% @books.each do |book| %>
   <% if @count==0 %>
-    <div class="d-flex justify-content-around mt-3 mx-auto">
+    <div class="d-flex justify-content-around mt-5 mx-auto">
       <% end %>
 
         <div class="card mx-auto mb-2" style="width: 14rem;">
@@ -23,5 +21,4 @@
             <% @count=0 %>
     </div>
     <% end %>
-
-      <% end %>
+<% end %>

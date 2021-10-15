@@ -1,0 +1,14 @@
+<nav class="navbar fixed-top rounded navbar-expand-lg navbar-light bg-info">
+  <h3 class="navbar-brand ps-4">Book Store</h3>
+  <div class="nav navbar-nav float-md-left">
+    <%= link_to("Home", "/", {class: "nav-link"} ) %>
+    
+      <% if user_signed_in? %>
+        <%= link_to("Logout", "/users/sign_out", method: :delete, data: {confirm: "本当にログアウトしますか？"}) %>
+      <% else %>
+        <%= link_to("sign_up", "/users/sign_up", {class: "nav-link"}) %>
+        <%= link_to("Login", "/users/sign_in", {class: "nav-link"}) %>
+      <% end %>
+    
+</nav>
+
