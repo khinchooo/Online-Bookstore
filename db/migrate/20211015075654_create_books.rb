@@ -5,6 +5,8 @@ class CreateBooks < ActiveRecord::Migration[6.1]
       t.string :image
       t.integer :price
       t.text :description
+      t.timestamp :delivery_time
+      t.integer :delivery_fee
 
       t.timestamps
     end

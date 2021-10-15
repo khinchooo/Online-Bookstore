@@ -13,7 +13,7 @@
           <p class="text-center">
             ¥ <%= book.price %>
           </p>
-          <%= link_to 'Buy' , '#' , class: "btn btn-info btn-sm rounded-0" %>
+          <%= link_to 'Buy' , book_path(book) , class: "btn btn-info btn-sm rounded-0" %>
         </div>
 
         <% @count +=1 %>
@@ -21,4 +21,4 @@
             <% @count=0 %>
     </div>
     <% end %>
-<% end %>
+      <% end %>

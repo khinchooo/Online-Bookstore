@@ -5,9 +5,13 @@ one:
   image: MyString
   price: 1
   description: MyText
+  delivery_time: 2021-10-15 16:56:54
+  delivery_fee: 1
 
 two:
   book_title: MyString
   image: MyString
   price: 1
   description: MyText
+  delivery_time: 2021-10-15 16:56:54
+  delivery_fee: 1
