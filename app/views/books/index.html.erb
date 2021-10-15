@@ -1,0 +1,27 @@
+<h1 class="text-center">Book Lists</h1>
+
+<% @books.each do |book| %>
+  <% if @count==0 %>
+    <div class="d-flex justify-content-around mt-3 mx-auto">
+      <% end %>
+
+        <div class="card mx-auto mb-2" style="width: 14rem;">
+          <h3 class="" style="height:330px;">
+            <%= image_tag("img/#{book.id}.jpg", :alt=> "", class: "card-img-top") %>
+          </h3>
+          <p class="text-center">
+            <%= book.book_title %>
+          </p>
+          <p class="text-center">
+            ¥ <%= book.price %>
+          </p>
+          <%= link_to 'Buy' , '#' , class: "btn btn-info btn-sm rounded-0" %>
+        </div>
+
+        <% @count +=1 %>
+          <% if @count==4 %>
+            <% @count=0 %>
+    </div>
+    <% end %>
+
+      <% end %>

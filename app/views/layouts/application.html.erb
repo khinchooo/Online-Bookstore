@@ -11,6 +11,14 @@
   </head>
 
   <body>
-    <%= yield %>
+    <nav class="navbar fixed rounded navbar-expand-lg navbar-dark bg-info">
+      <div class="container-fluid">
+        <span class="navbar-brand">
+         <%= image_tag '/assets/1.jpg', style: 'height: 20px;' %></span>
+      </div>
+    </nav>
+      <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
