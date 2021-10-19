@@ -8,8 +8,8 @@
     <p class="text-center">
       <%= book.book_title %>
     </p>
-    <p class="text-center">
-      ¥ <%= book.price %>
+    <p class="text-center bi bi-currency-yen">
+      <%= book.price %>
     </p>
     <%= link_to 'Buy' , book_path(book) , class: "btn btn-success btn-sm rounded-0" %>
     </div>

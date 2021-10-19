@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center mt-5">
   <%= form_with scope: :book, url: order_path, local: true do |f| %>
-  <h1 class="text-center">Book Detail</h1>
+    <h1 class="text-center">Book Detail</h1>
     <div class="d-flex justify-content-center m-3">
       <%= image_tag("img/#{@book.id}.jpg", :alt=> "") %>
     </div>
@@ -22,19 +22,18 @@
         <tr>
           <td>Delivery Date:</td>
           <td>
-            <%= @delivery_time.strftime "%A, %b %d %H:%M" %>
+            <%= @delivery_time.strftime " %A, %b %d %H:%M" %>
             <%= f.hidden_field :delivery_time, value: @delivery_time %>
           </td>
         </tr>
         <tr>
           <td>Shipping Fee:</td>
-          <td>¥ <%= @book.delivery_fee %>
+          <td class="bi bi-currency-yen"><%= @book.delivery_fee %>
           </td>
         </tr>
         <tr>
           <td>Price:</td>
-          <td>¥ <%= @book.price %>
-          </td>
+          <td class="bi bi-currency-yen"><%= @book.price %></td>
         </tr>
         <td>Quantity:</td>
         <td>

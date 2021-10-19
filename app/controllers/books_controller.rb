@@ -18,7 +18,7 @@ class BooksController < ApplicationController
     # Get post data
     @param_data = params[:book]
     @quantity = @param_data[:quantity]
-    if @quantity.to_i > 3
+    if @quantity.to_i > 2
       @total_amount = (@book.price * @quantity.to_i)
     else
       @total_amount = (@book.price * @quantity.to_i) + @book.delivery_fee
@@ -27,18 +27,15 @@ class BooksController < ApplicationController
 
   def payment
     # Get post data
-    @do_order = params[:do_order]
+    # @do_order = params[:do_order]
   end
 
   def checkout
-    # # Get post data
-    @do_order = Order.new(
-      book_id: params[:book_id],
-      quantity: params[:quantity],
-      total_amount: params[:total_amount],
-      delivery_time: params[:delivery_time]
-    )
-    if @do_order.save
+    # Get post data
+    @order = Order.new(order_params)
+    @payment = Payment.new(payment_params)
+
+    if @order.save && @payment.save
       redirect_to '/'
     else 
       render 'payment'
@@ -49,7 +46,10 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
   end
 
-  # def payment_params
-  #   params.require(:order).permit(:book_id, :quantity, :total_amount)
-  # end
+  def order_params
+    params.require(:do_order).permit(:book_id, :quantity, :total_amount, :delivery_time)
+  end
+  def payment_params
+    params.require(:do_order).permit(:book_id, :order_id, :payment_type)
+  end
 end
