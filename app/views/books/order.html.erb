@@ -20,22 +20,32 @@
             <%= f.hidden_field :quantity, value: @quantity %>
         </td>
       </tr>
+      </tr>
+        <td>Delivery Fee:</td>
+        <td>
+          <% if @quantity.to_i > 2 %>
+            FREE
+          <% else %>
+            <%= @book.delivery_fee %>
+          <% end %>  
+        </td>
+      </tr>
       <tr>
         <td>Total Amount:</td>
         <td>
-          <%= @total_amount %>
-            <span> ¥ </span><%= f.hidden_field :total_amount, value: @total_amount %>
+          ¥ <%= @total_amount %>
+          <%= f.hidden_field :total_amount, value: @total_amount %>
         </td>
       </tr>
       <%= f.hidden_field :delivery_time, value: @delivery_time %>
       <tr>
         <td>Payment method:</td>
-        <td><%= f.select :payment, ['Debit Card', 'Credit Card', 'Mobile payment', 'Bank transfer'] %></td>
+        <td><%= f.select :payment, @payment,:prompt => 'Add to Payment....' %></td>
       </tr>
     </tbody>
   </table>
   <div class="d-flex justify-content-center m-3">
-    <%= link_to "Cancle", root_path, class: "btn btn-primary mx-3" %>
+    <%= link_to "Cancle", book_path, class: "btn btn-primary mx-3" %>
     <%= f.submit "Go to checkout" , class: "btn btn-primary" %>
   </div>
   <% end %>
