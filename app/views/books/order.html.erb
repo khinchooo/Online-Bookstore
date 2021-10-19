@@ -37,7 +37,6 @@
           <%= f.hidden_field :total_amount, value: @total_amount %>
         </td>
       </tr>
-      <%= f.hidden_field :delivery_time, value: @delivery_time %>
       <tr>
         <td>Payment method:</td>
         <td><%= f.select :payment, @payment,:prompt => 'Add to Payment....' %></td>
@@ -45,6 +44,7 @@
     </tbody>
   </table>
   <div class="d-flex justify-content-center m-3">
+    <%= f.hidden_field :delivery_time, value: @delivery_time %>
     <%= link_to "Cancle", book_path, class: "btn btn-primary mx-3" %>
     <%= f.submit "Go to checkout" , class: "btn btn-primary" %>
   </div>

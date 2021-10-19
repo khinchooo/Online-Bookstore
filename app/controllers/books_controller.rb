@@ -1,18 +1,20 @@
 require 'date'
 
 class BooksController < ApplicationController
-  before_action :set_params, only: [:show, :order, :payment]
+  before_action :set_params, only: [:show, :order, :payment, :checkout]
   def index
-    @books = Book.all
+    @books = Book.all.paginate(page: params[:page], per_page: 4)
     @count = 0
   end
 
   def show
-    @delivery_time = (DateTime.now.strftime "%A, %b %d")+' ～ '+((DateTime.now + 3.days).strftime "%A, %b %d %H:%M")
+    @delivery_time = DateTime.now + 3.days
+    # @delivery_time = (DateTime.now.strftime "%A, %b %d")+' ～ '+((DateTime.now + 3.days).strftime "%A, %b %d %H:%M")
   end
 
   def order
     @payment = ['Debit Card', 'Credit Card', 'Mobile payment', 'Bank transfer']
+    @delivery_time = params[:book][:delivery_time]
     # Get post data
     @param_data = params[:book]
     @quantity = @param_data[:quantity]
@@ -30,8 +32,12 @@ class BooksController < ApplicationController
 
   def checkout
     # # Get post data
-     @do_order = Payment.new(payment_params)
- 
+    @do_order = Order.new(
+      book_id: params[:book_id],
+      quantity: params[:quantity],
+      total_amount: params[:total_amount],
+      delivery_time: params[:delivery_time]
+    )
     if @do_order.save
       redirect_to '/'
     else 
@@ -43,7 +49,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
   end
 
-  def payment_params
-    params.require(:payment).permit(:order_id, :book_id, :payment_type)
-  end
+  # def payment_params
+  #   params.require(:order).permit(:book_id, :quantity, :total_amount)
+  # end
 end
