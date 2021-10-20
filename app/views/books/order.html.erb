@@ -17,7 +17,7 @@
       <td>Quantity:</td>
       <td>
         <%= @quantity %>
-          <%= f.hidden_field :quantity, value: @quantity %>
+          <%= f.hidden_field :quantity, value: @quantity, required: true %>
       </td>
       </tr>
       </tr>
@@ -34,7 +34,7 @@
         <td>Total Amount:</td>
         <td class="bi bi-currency-yen">
           <%= @total_amount %>
-          <%= f.hidden_field :total_amount, value: @total_amount %>
+            <%= f.hidden_field :total_amount, value: @total_amount %>
         </td>
       </tr>
       <tr>
@@ -47,8 +47,8 @@
   </table>
   <div class="d-flex justify-content-center m-3">
     <%= f.hidden_field :order_id, value: @book[:id] %>
-    <%= f.hidden_field :delivery_time, value: @delivery_time %>
-    <%= link_to "Cancle" , book_path, class: "btn btn-primary mx-3" %>
-    <%= f.submit "Go to checkout" , class: "btn btn-primary" %>
+      <%= f.hidden_field :delivery_time, value: @delivery_time %>
+        <%= link_to "Cancle" , book_path, class: "btn btn-primary mx-3" %>
+          <%= f.submit "Go to checkout" , class: "btn btn-primary" %>
   </div>
   <% end %>

@@ -1,13 +1,18 @@
 <nav class="navbar fixed-top rounded navbar-expand-sm navbar-light bg-light border border-success navbar-fixed-top">
   <%= image_tag 'img/bookstore.png' , :class=> "navbar-brand ps-4" %>
+  <%= form_tag root_path, :method => 'get' do %>
+      <%= text_field_tag :search_value, params[:search_value] %>
+      <%= submit_tag 'Search' %>
+  <% end %>
   <div class="navbar-nav ms-auto mx-5 mb-sm-0">
     <%= link_to("Home", "/" , {class: "nav-link bi bi-house-door-fill text-success" } ) %>
 
     <% if user_signed_in? %>
-      <%= link_to 'Logout' , destroy_user_session_path, method: :delete, :class=> "nav-link bi bi-box-arrow-right text-success" %>
+      <p class= "bi bi-person-fill text-success mt-2"><%= "Name: #{current_user.name}" %></p>
+      <%= link_to 'Logout', '/users/sign_out', method: :delete, class: "nav-link bi bi-box-arrow-right text-success" %>
     <% else %>
-      <%= link_to 'Create Account' , '/users/sign_up' , :class=> "nav-link bi bi-person-lines-fill text-success" %>
-      <%= link_to 'Login' , new_user_session_path, :class=> "nav-link bi bi-box-arrow-in-right text-success" %>
+      <%= link_to 'Create Account', '/users/sign_up', class: "nav-link bi bi-person-lines-fill text-success" %>
+      <%= link_to 'Login' , '/users/sign_in', class: "nav-link bi bi-box-arrow-in-right text-success" %>
     <% end %>
   </div>
 </nav>
