@@ -35,18 +35,23 @@ class BooksController < ApplicationController
     )
 
     if @order.save
-      @payment = Payment.new(
+      Payment.new(
         book_id: params[:do_order][:book_id],
         order_id: @order.id,
         payment_type: params[:do_order][:payment_type]
       ).save
-      redirect_to 'orderlist_path'
+
+      # redierct
+      redirect_to orders_path
     else
-      render 'order'
+      render :order
     end
   end
 
-  def orderlist
+  def orders
+    @order = Order.find(params[:id])
+    @pyament = Payment.find(order_id: @order.id)
+    Rails.logger.debug(@payment.inspect)
   end
   
 

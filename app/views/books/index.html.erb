@@ -1,23 +1,23 @@
 <% @books.each do |book| %>
   <% if @count==0 %>
     <div class="d-flex justify-content-around mx-auto" style="margin-top:80px;">
-  <% end %>
+      <% end %>
 
-    <div class="card mx-auto mb-2" style="width: 14rem;">
-      <%= image_tag("img/#{book.id}.jpg", :alt=> "", class: "card-img-top", :style=> "height:330px;") %>
-    <p class="text-center">
-      <%= book.book_title %>
-    </p>
-    <p class="text-center bi bi-currency-yen">
-      <%= book.price %>
-    </p>
-    <%= link_to 'Buy' , book_path(book) , class: "btn btn-success btn-sm rounded-0" %>
-    </div>
+        <div class="card mx-auto mb-2" style="width: 14rem;">
+          <%= image_tag("img/#{book.id}.jpg", :alt=> "", class: "card-img-top", :style=> "height:330px;") %>
+            <p class="text-center">
+              <%= book.book_title %>
+            </p>
+            <p class="text-center bi bi-currency-yen">
+              <%= book.price %>
+            </p>
+            <%= link_to 'Buy' , show_book_path(book) , class: "btn btn-success btn-sm rounded-0" %>
+        </div>
 
-    <% @count +=1 %>
-      <% if @count==4 %>
-        <% @count=0 %>
+        <% @count +=1 %>
+          <% if @count==4 %>
+            <% @count=0 %>
     </div>
     <%= will_paginate @books %>
-    <% end %>
-<% end %>
+      <% end %>
+        <% end %>

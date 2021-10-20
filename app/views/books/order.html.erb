@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <h1>Add Payment</h1>
 </div>
-<%= form_with scope: :do_order, url: checkout_path, local: true do |f| %>
+<%= form_with scope: :do_order, url: create_checkout_path, local: true do |f| %>
   <div class="d-flex justify-content-center m-3">
     <%= image_tag("img/#{@book.id}.jpg", :alt=> "") %>
   </div>
@@ -48,7 +48,7 @@
   <div class="d-flex justify-content-center m-3">
     <%= f.hidden_field :order_id, value: @book[:id] %>
       <%= f.hidden_field :delivery_time, value: @delivery_time %>
-        <%= link_to "Cancle" , book_path, class: "btn btn-primary mx-3" %>
+        <%= link_to "Cancle" , show_book_path, class: "btn btn-primary mx-3" %>
           <%= f.submit "Go to checkout" , class: "btn btn-primary" %>
   </div>
   <% end %>
