@@ -1,5 +1,15 @@
-<h1 class="text-center">Complete</h1>
-<p class="text-center">Complete Successfully.Thank you!</p>
-<div class="d-flex justify-content-center m-3">
-  <%= link_to 'Back' , root_path, class: "btn btn-primary" %>
-</div>
+<% @order_list.each do |order| %>
+  <div class="d-flex justify-content-center m-3">
+      <%= image_tag("img/#{order.book_id}.jpg", :alt=> "") %>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>Quantity:</td>
+          <td>
+            <%= order.quantity %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<% end %>
