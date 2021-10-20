@@ -1,8 +1,8 @@
 <nav class="navbar fixed-top rounded navbar-expand-sm navbar-light bg-light border border-success navbar-fixed-top">
-  <%= image_tag 'img/bookstore.png' , :class=> "navbar-brand ps-4" %>
+  <%= image_tag 'img/bookstore.png', :class=> "navbar-brand ps-4" %>
   <%= form_tag root_path, :method => 'get' do %>
-      <%= text_field_tag :search_value, params[:search_value] %>
-      <%= submit_tag 'Search' %>
+    <%= text_field_tag :search_value, params[:search_value] %>
+    <%= submit_tag 'Search'%>
   <% end %>
   <div class="navbar-nav ms-auto mx-5 mb-sm-0">
     <%= link_to("Home", "/" , {class: "nav-link bi bi-house-door-fill text-success" } ) %>
