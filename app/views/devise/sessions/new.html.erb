@@ -19,6 +19,7 @@
   <% end %>
 
   <div class="actions">
+    <%= f.hidden_field :origin, value: params[:origin] %>
     <%= f.submit "Log in" %>
   </div>
 <% end %>

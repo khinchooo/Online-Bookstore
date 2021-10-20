@@ -2,7 +2,6 @@ require 'date'
 
 class BooksController < ApplicationController
   before_action :set_params, only: [:show, :order, :checkout]
-  before_action :authenticate_user!, only: [:checkout]
   def index
     @books = Book.all.search(params[:search_value]).paginate(page: params[:page], per_page: 4)
     @count = 0
@@ -14,6 +13,9 @@ class BooksController < ApplicationController
   end
 
   def order
+    # redirect login
+    redirect_to new_user_session_path(origin: show_book_path) unless user_signed_in?
+
     @payment = ['Debit Card', 'Credit Card', 'Mobile payment', 'Bank transfer']
     @delivery_time = params[:book][:delivery_time]
     @param_data = params[:book]
@@ -49,9 +51,12 @@ class BooksController < ApplicationController
   end
 
   def orders
-    @order = Order.find(params[:id])
-    @pyament = Payment.find(order_id: @order.id)
-    Rails.logger.debug(@payment.inspect)
+    @order_list = Order.select('
+      orders.book_id,
+      orders.total_amount,
+      orders.quantity,
+      payments.payment_type
+    ').joins('INNER JOIN payments ON payments.order_id = orders.id')
   end
   
 
