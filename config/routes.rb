@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   post '/books/:id/order', to: 'books#order', as: 'create_order'
   post 'books/:id/checkout', to: 'books#checkout', as: 'create_checkout'
   get 'orders', to: 'books#orders', as: 'orders'
+  delete '/books/:id', to: 'books#destroy', as: 'cancel'
 end

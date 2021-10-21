@@ -13,6 +13,13 @@ class Users::SessionsController < Devise::SessionsController
       # delete session origin
       session.delete(:origin)
     end
+    unless params[:quantity].blank?
+      # create session origin
+      session[:quantity] = params[:quantity]
+    else
+      # delete session origin
+      session.delete(:quantity)
+    end
   end
 
   # POST /resource/sign_in
@@ -29,6 +36,6 @@ class Users::SessionsController < Devise::SessionsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:origin])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:origin, :quantity])
   end
 end

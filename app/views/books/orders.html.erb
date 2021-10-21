@@ -1,15 +1,45 @@
-<% @order_list.each do |order| %>
-  <div class="d-flex justify-content-center m-3">
-      <%= image_tag("img/#{order.book_id}.jpg", :alt=> "") %>
+<% @order_list.each do |list| %>
+<div class="d-flex justify-content-center m-3">
+  <div class="card blist-success mb-3" style="max-width: 540px; background-color: #cbd5e0;">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <%= image_tag("img/#{list.book_id}.jpg", :class=> "img-fluid rounded-start", :alt=> "") %>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Customer Name:</td>
+              <td class="card-text">
+                <%= list.name %>
+              </td>
+            </tr>
+            <tr>
+              <td>Address:</td>
+              <td class="card-text">
+                <%= list.address %>
+              </td>
+            </tr>
+            <tr>
+              <td>Quantity:</td>
+              <td class="card-text"><%= list.quantity %></td>
+            </tr>
+            <tr>
+              <td>Order Total:</td>
+              <td class="card-text bi bi-currency-yen"><%= list.total_amount %></td>
+            </tr>
+            <tr>
+              <td>Payment Method:</td>
+              <td class="card-text"><%= list.payment_type %></td>
+            </tr>
+          </tbody>
+        </table>
+        <%= button_to 'Order Cancel', "books/#{list.id}", method: :delete, class: 'btn btn-primary btn-sm mx-3' %></td>
+        <%= link_to "Update" , '#', class: "btn btn-primary btn-sm mx-3" %>
+        </div>
+      </div>
     </div>
-    <table class="table">
-      <tbody>
-        <tr>
-          <td>Quantity:</td>
-          <td>
-            <%= order.quantity %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  </div>
+</div>  
 <% end %>
