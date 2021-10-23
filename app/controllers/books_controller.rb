@@ -1,7 +1,7 @@
 require 'date'
 
 class BooksController < ApplicationController
-  before_action :set_params, only: [:show, :order, :checkout]
+  before_action :set_params, only: [:show, :order, :checkout, :cart]
   def index
     @books = Book.all.search(params[:search_value]).paginate(page: params[:page], per_page: 4)
     @count = 0
@@ -30,20 +30,19 @@ class BooksController < ApplicationController
   end
 
   def checkout
-    # Get post data
-    @order = Order.new(
+    @payment = Payment.new(
       user_id: current_user.id,
-      book_id: params[:do_order][:book_id],
-      quantity: params[:do_order][:quantity],
-      total_amount: params[:do_order][:total_amount],
-      delivery_time: params[:do_order][:delivery_time]
+      payment_type: params[:do_order][:payment_type]
     )
 
-    if @order.save
-      Payment.new(
+    if @payment.save
+      Order.new(
         user_id: current_user.id,
-        order_id: @order.id,
-        payment_type: params[:do_order][:payment_type]
+        book_id: params[:do_order][:book_id],
+        quantity: params[:do_order][:quantity],
+        total_amount: params[:do_order][:total_amount],
+        delivery_time: params[:do_order][:delivery_time],
+        payment_id: @payment[:id]
       ).save
 
       # redierct
@@ -51,6 +50,18 @@ class BooksController < ApplicationController
     else
       render :order
     end
+  end
+
+  def cart
+    @book_id = cookies[:book_id] = params[:do_order][:book_id]
+    @quantity = cookies[:quantity] = params[:do_order][:quantity]
+    @user_id = cookies[:user_id] = current_user.id
+    Rails.logger.debug("HERE")
+    Rails.logger.debug(@book_id.inspect)
+    Rails.logger.debug("HERE")
+    Rails.logger.debug(@quantity.inspect)
+    Rails.logger.debug("HERE")
+    Rails.logger.debug( @user_id.inspect)
   end
 
   def orders
@@ -64,7 +75,7 @@ class BooksController < ApplicationController
         users.address
       ').joins('
         INNER JOIN payments
-        ON payments.order_id = orders.id
+        ON payments.id = orders.payment_id
         INNER JOIN users
         ON users.id = orders.user_id
       ').where(user_id: current_user.id).order('orders.created_at DESC')
@@ -73,20 +84,41 @@ class BooksController < ApplicationController
   def cart
     cookies[:book_id] = params[:book_id]
   end
-  
+
+  def edit
+    @payment = ['Debit Card', 'Credit Card(Mastercard)', 'Mobile payment', 'Bank transfer']
+    @order = Order.select('
+      orders.id,
+      orders.quantity,
+      payments.payment_type,
+      users.address
+    ').joins('
+      INNER JOIN payments
+      ON payments.id = orders.payment_id
+      INNER JOIN users
+      ON users.id = orders.user_id
+    ').where('orders.id = ?', params[:id]).first
+  end
+
+  def update
+    @order = Order.find(params[:id])
+    @order[:quantity] = params[:quantity]
+    @order.payment[:payment_type] = params[:payment_type]
+    @order.user[:address] = params[:address]
+    if @order.save && @order.payment.save && @order.user.save
+      redirect_to orders_path
+    else
+      render :edit
+    end
+  end
 
   def destroy
-    # @order = Order.find(params[:id])
-    # @payment = Payment.where(order_id: @order.id)
-    # if @order.destroy && @payment.destroy
-    #   redierct_to root_path
-    # else
-    #   render :orders
-    # end
+    @order = Order.find(params[:id])
+    @order.destroy
+
+    redirect_to orders_path
   end
   
-  
-
   def set_params
     @book = Book.find(params[:id])
   end

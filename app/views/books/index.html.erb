@@ -4,7 +4,7 @@
       <% end %>
 
         <div class="card mx-auto mb-2" style="width: 14rem;">
-          <%= image_tag("img/#{book.id}.jpg", :alt=> "", class: "card-img-top", :style=> "height:330px;") %>
+          <%= image_tag("img/#{book.image}", :alt=> "", class: "card-img-top", :style=> "height:330px;") %>
             <p class="text-center">
               <%= book.book_title %>
             </p>
@@ -20,4 +20,4 @@
     </div>
     <%= will_paginate @books %>
       <% end %>
-<% end %>
+        <% end %>

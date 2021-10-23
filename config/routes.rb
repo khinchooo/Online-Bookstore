@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get '/books/:id', to: 'books#show', as: 'show_book'
   post '/books/:id/order', to: 'books#order', as: 'create_order'
   post 'books/:id/checkout', to: 'books#checkout', as: 'create_checkout'
+  # get 'books/:id/cart', to: 'books#cart', as: 'cart'
   get 'orders', to: 'books#orders', as: 'orders'
-  delete '/books/:id', to: 'books#destroy', as: 'cancel'
+  get 'orders/:id/edit', to: 'books#edit', as: 'edit_order'
+  post 'orders/:id', to:	'books#update', as: 'update_order'
+  delete 'orders/:id', to: 'books#destroy', as: 'cancel_order'
 end

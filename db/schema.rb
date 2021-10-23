@@ -23,19 +23,21 @@ ActiveRecord::Schema.define(version: 2021_10_19_122719) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "book_id"
+    t.integer "book_id", null: false
     t.integer "quantity"
     t.datetime "delivery_time"
     t.integer "total_amount"
     t.integer "user_id", null: false
+    t.integer "payment_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_orders_on_book_id"
+    t.index ["payment_id"], name: "index_orders_on_payment_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "payments", force: :cascade do |t|
     t.string "payment_type"
-    t.integer "order_id"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -62,6 +64,8 @@ ActiveRecord::Schema.define(version: 2021_10_19_122719) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "orders", "books"
+  add_foreign_key "orders", "payments"
   add_foreign_key "orders", "users"
   add_foreign_key "payments", "users"
 end

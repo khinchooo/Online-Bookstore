@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-center mt-5">
-  <%= form_with scope: :book, url: create_order_path, local: true do |f| %>
+  <%= form_with scope: :book, url: create_order_path,id: "order_form" , local: true do |f| %>
     <h2 class="text-center fw-lighter">Book Detail</h2>
     <div class="d-flex justify-content-center m-3">
-      <%= image_tag("img/#{@book.id}.jpg", :alt=> "") %>
+      <%= image_tag("img/#{@book.image}", :alt=> "") %>
     </div>
     <table class="table">
       <tbody>
@@ -46,8 +46,19 @@
       </tbody>
     </table>
     <div class="d-flex justify-content-center m-3">
-      <%= link_to "Cancle" , root_path, class: "btn btn-primary mx-3" %>
-        <%= f.submit "Buy Now" , class: "btn btn-primary" %>
+      <%= link_to "Cancle", root_path, class: "btn btn-primary mx-3" %>
+        <%= f.hidden_field :add_cart, value: 0 %>
+        <%= f.button "Buy Now", class: "btn btn-primary" %>
+        <%= f.button "Add to Cart", class: "btn btn-primary mx-3" %>
     </div>
     <% end %>
 </div>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#order_form").change(function () {
+      if ( this.value == "0") {
+        $("#book_add_cart").formSubmit();
+     }
+    });
+  });
+</script>

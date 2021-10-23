@@ -3,7 +3,7 @@
 </div>
 <%= form_with scope: :do_order, url: create_checkout_path, local: true do |f| %>
   <div class="d-flex justify-content-center m-3">
-    <%= image_tag("img/#{@book.id}.jpg", :alt=> "") %>
+    <%= image_tag("img/#{@book.image}", :alt=> "") %>
   </div>
   <table class="table d-flex justify-content-center">
     <tbody>
@@ -40,7 +40,7 @@
       <tr>
         <td>Payment method:</td>
         <td>
-          <%= f.select :payment_type, @payment,:prompt=> 'Add to Payment....' %>
+          <%= f.select :payment_type, @payment, :prompt=> 'Add to Payment....' %>
         </td>
       </tr>
     </tbody>
