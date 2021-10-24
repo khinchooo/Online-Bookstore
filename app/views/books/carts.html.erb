@@ -1,0 +1,7 @@
+<ul>
+  <% @carts.each do |cart| %>
+    <li>
+      <%= cart['book_id'] %> | <%= cart['quantity'] %> | <%= cart['user_id'] %>
+    </li>
+  <% end %>
+</ul>

@@ -16,16 +16,49 @@ class BooksController < ApplicationController
 
   def order
     # redirect login
-    redirect_to new_user_session_path(origin: show_book_path, quantity: params[:book][:quantity]) unless user_signed_in?
-
-    @payment = ['Debit Card', 'Credit Card(Mastercard)', 'Mobile payment', 'Bank transfer']
-    @delivery_time = params[:book][:delivery_time]
     @param_data = params[:book]
+    redirect_to new_user_session_path(origin: show_book_path, quantity: @param_data[:quantity]) unless user_signed_in?
+
+    @delivery_time = @param_data[:delivery_time]
     @quantity = @param_data[:quantity]
-    if @quantity.to_i > 2
-      @total_amount = (@book.price * @quantity.to_i)
+
+    # check add_cart
+    if @param_data[:add_cart].to_i == 1
+      # save cookies
+      @carts = []
+      cookie_carts = cookies[:carts]
+      if cookie_carts.present? && JSON.parse(cookie_carts).length > 0
+        @carts = JSON.parse(cookie_carts).find_all {|cart| cart['user_id'].to_i == current_user.id }
+      end
+      @carts << {
+        user_id: current_user.id,
+        book_id: @param_data[:book_id],
+        quantity: @param_data[:quantity]
+      }
+      # save cookies
+      cookies[:carts] = {
+        value: JSON.generate(@carts),
+        expires: 1.week
+      }
+      # redierct
+      redirect_to carts_path
     else
-      @total_amount = (@book.price * @quantity.to_i) + @book.delivery_fee
+      @payment = ['Debit Card', 'Credit Card(Mastercard)', 'Mobile payment', 'Bank transfer']
+     
+      if @quantity.to_i > 2
+        @total_amount = (@book.price * @quantity.to_i)
+      else
+        @total_amount = (@book.price * @quantity.to_i) + @book.delivery_fee
+      end
+    end
+  end
+
+  def carts
+    # get cookies
+    @carts = []
+    cookie_carts = cookies[:carts]
+    if cookie_carts.present? && JSON.parse(cookie_carts).length > 0
+      @carts = JSON.parse(cookie_carts).find_all {|cart| cart['user_id'].to_i == current_user.id }
     end
   end
 
@@ -52,33 +85,21 @@ class BooksController < ApplicationController
     end
   end
 
-  def cart
-    @book_id = cookies[:book_id] = params[:do_order][:book_id]
-    @quantity = cookies[:quantity] = params[:do_order][:quantity]
-    @user_id = cookies[:user_id] = current_user.id
-    Rails.logger.debug("HERE")
-    Rails.logger.debug(@book_id.inspect)
-    Rails.logger.debug("HERE")
-    Rails.logger.debug(@quantity.inspect)
-    Rails.logger.debug("HERE")
-    Rails.logger.debug( @user_id.inspect)
-  end
-
   def orders
-      @order_list = Order.select('
-        orders.id,
-        orders.book_id,
-        orders.total_amount,
-        orders.quantity,
-        payments.payment_type,
-        users.name,
-        users.address
-      ').joins('
-        INNER JOIN payments
-        ON payments.id = orders.payment_id
-        INNER JOIN users
-        ON users.id = orders.user_id
-      ').where(user_id: current_user.id).order('orders.created_at DESC')
+    @order_list = Order.select('
+      orders.id,
+      orders.book_id,
+      orders.total_amount,
+      orders.quantity,
+      payments.payment_type,
+      users.name,
+      users.address
+    ').joins('
+      INNER JOIN payments
+      ON payments.id = orders.payment_id
+      INNER JOIN users
+      ON users.id = orders.user_id
+    ').where(user_id: current_user.id).order('orders.created_at DESC')
   end
 
   def cart
