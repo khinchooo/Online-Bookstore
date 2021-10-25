@@ -1,7 +1,7 @@
 require 'date'
 
 class BooksController < ApplicationController
-  before_action :set_params, only: [:show, :order, :checkout, :cart]
+  before_action :set_params, only: [:show, :order, :checkout]
   def index
     @books = Book.all.search(params[:search_value]).paginate(page: params[:page], per_page: 4)
     @count = 0
@@ -55,10 +55,30 @@ class BooksController < ApplicationController
 
   def carts
     # get cookies
-    @carts = []
+    cart_list = []
     cookie_carts = cookies[:carts]
     if cookie_carts.present? && JSON.parse(cookie_carts).length > 0
-      @carts = JSON.parse(cookie_carts).find_all {|cart| cart['user_id'].to_i == current_user.id }
+      cart_list = JSON.parse(cookie_carts).find_all {|cart| cart['user_id'].to_i == current_user.id }
+    end
+    @carts = []
+    @sub_total = 0
+    cart_list.each do |cart|
+      book = Book.find(cart['book_id'])
+      if cart['quantity'].to_i > 2
+        @total_amount = (book[:price] * cart['quantity'].to_i)
+      else
+        @total_amount = (book[:price] * cart['quantity'].to_i) + book[:delivery_fee]
+      end
+        @sub_total += @total_amount
+      cart = {
+        book_id: book[:id],
+        book_title: book[:book_title],
+        image: book[:image],
+        price: @total_amount,
+        quantity: cart['quantity'],
+        user_id: cart['user_id']
+      }
+      @carts << cart
     end
   end
 
@@ -89,6 +109,8 @@ class BooksController < ApplicationController
     @order_list = Order.select('
       orders.id,
       orders.book_id,
+      orders.created_at,
+      orders.delivery_time,
       orders.total_amount,
       orders.quantity,
       payments.payment_type,
@@ -100,10 +122,6 @@ class BooksController < ApplicationController
       INNER JOIN users
       ON users.id = orders.user_id
     ').where(user_id: current_user.id).order('orders.created_at DESC')
-  end
-
-  def cart
-    cookies[:book_id] = params[:book_id]
   end
 
   def edit

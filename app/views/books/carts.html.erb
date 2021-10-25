@@ -1,7 +1,44 @@
-<ul>
-  <% @carts.each do |cart| %>
-    <li>
-      <%= cart['book_id'] %> | <%= cart['quantity'] %> | <%= cart['user_id'] %>
-    </li>
-  <% end %>
-</ul>
+<% if @carts.length.zero? %>
+  <div class="d-flex justify-content-center">
+    <p class="display-5 text-muted">
+    <%= image_tag 'img/shopping.gif', :alt=> "" %>Your Cart is Empty</p>
+  </div>
+<% else %>
+<div class="container border border-success bg-gray w-50 h-100 rounded">
+  <div class="row justify-content-md-center">
+    <div class="col col-md-2">Subtotal:</div>
+    <div class="col col-md-2 bi bi-currency-yen"><td><%= @sub_total %></td></div>
+  </div>
+</div>
+<% @carts.each do |cart| %>
+<div class="d-flex justify-content-center m-3">
+  <div class="card blist-success mb-3" style="max-width: 540px; background-color: #cbd5e0;">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <%= image_tag("img/#{cart[:image]}", :class=> "img-fluid rounded-start", :alt=> "") %>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Book_Title:</td>
+                <td><%= cart[:book_title] %></td>
+              </tr>
+              <tr>
+                <td>Quantity:</td>
+                <td><%= cart[:quantity] %></td>
+              </tr>
+              <tr>
+                <td>Price:</td>
+                <td class="bi bi-currency-yen"><%= cart[:price] %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+<% end %>

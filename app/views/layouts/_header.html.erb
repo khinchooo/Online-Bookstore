@@ -10,6 +10,7 @@
     <% if user_signed_in? %>
       <%= link_to('My Orders', orders_path, class: "nav-link bi bi-card-checklist text-success" ) %>
       <p class= "bi bi-person-fill text-success mt-2"><%= "Name: #{current_user.name}" %></p>
+      <%= link_to 'Cart', carts_path, class: "nav-link bi bi-cart4 text-success" %>
       <%= link_to 'Logout', '/users/sign_out', method: :delete, class: "nav-link bi bi-box-arrow-right text-success" %>
     <% else %>
       <%= link_to 'Create Account', '/users/sign_up', class: "nav-link bi bi-person-lines-fill text-success" %>

@@ -25,9 +25,9 @@
       <td>
         <% if @quantity.to_i> 2 %>
           FREE
-          <% else %>
-            <%= @book.delivery_fee %>
-              <% end %>
+        <% else %>
+          <%= @book.delivery_fee %>
+        <% end %>
       </td>
       </tr>
       <tr>
