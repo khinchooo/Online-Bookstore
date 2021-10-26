@@ -3,8 +3,7 @@ require 'date'
 class BooksController < ApplicationController
   before_action :set_params, only: [:show, :order, :checkout]
   def index
-    @books = Book.all.search(params[:search_value]).paginate(page: params[:page], per_page: 4)
-    @count = 0
+    @books = Book.all.search(params[:search_value]).paginate(page: params[:page], per_page: 8)
   end
 
   def show
@@ -38,8 +37,10 @@ class BooksController < ApplicationController
       # save cookies
       cookies[:carts] = {
         value: JSON.generate(@carts),
+        # expires: 1.minute
         expires: 1.week
       }
+      cookies[:cart_total] = @carts.length
       # redierct
       redirect_to carts_path
     else
@@ -70,15 +71,14 @@ class BooksController < ApplicationController
         @total_amount = (book[:price] * cart['quantity'].to_i) + book[:delivery_fee]
       end
         @sub_total += @total_amount
-      cart = {
+        @carts << {
         book_id: book[:id],
         book_title: book[:book_title],
         image: book[:image],
-        price: @total_amount,
+        total_amount: @total_amount,
         quantity: cart['quantity'],
         user_id: cart['user_id']
       }
-      @carts << cart
     end
   end
 

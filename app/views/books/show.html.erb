@@ -23,7 +23,7 @@
           <td>Delivery Date:</td>
           <td class="bi bi-calendar-check">
             <%= (@current_date.strftime "%A, %b %d" )+ ' ～ ' +(@delivery_time.strftime " %A, %b %d %H:%M" ) %>
-              <%= f.hidden_field :delivery_time, value: @delivery_time %>
+            <%= f.hidden_field :delivery_time, value: @delivery_time %>
           </td>
         </tr>
         <tr>

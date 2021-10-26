@@ -4,8 +4,8 @@
     <%= image_tag 'img/shopping.gif', :alt=> "" %>Your Cart is Empty</p>
   </div>
 <% else %>
-<div class="container border border-success bg-gray w-50 h-100 rounded">
-  <div class="row justify-content-md-center">
+<div class="container">
+  <div class="row justify-content-sm-center">
     <div class="col col-md-2">Subtotal:</div>
     <div class="col col-md-2 bi bi-currency-yen"><td><%= @sub_total %></td></div>
   </div>
@@ -13,7 +13,7 @@
 <% @carts.each do |cart| %>
 <div class="d-flex justify-content-center m-3">
   <div class="card blist-success mb-3" style="max-width: 540px; background-color: #cbd5e0;">
-    <div class="row g-3">
+    <div class="row g-0">
       <div class="col-md-4">
         <%= image_tag("img/#{cart[:image]}", :class=> "img-fluid rounded-start", :alt=> "") %>
       </div>
@@ -24,17 +24,20 @@
               <tr>
                 <td>Book_Title:</td>
                 <td><%= cart[:book_title] %></td>
+                <%= hidden_field :book_id, value: cart[:book_id] %>
               </tr>
               <tr>
                 <td>Quantity:</td>
                 <td><%= cart[:quantity] %></td>
+                <%= hidden_field :quantity, value: cart[:quantity] %>
               </tr>
               <tr>
                 <td>Price:</td>
-                <td class="bi bi-currency-yen"><%= cart[:price] %></td>
+                <td class="bi bi-currency-yen"><%= cart[:total_amount] %></td>
               </tr>
             </tbody>
           </table>
+          <%= hidden_field :delivery_time, value: @delivery_time %>
         </div>
       </div>
     </div>
