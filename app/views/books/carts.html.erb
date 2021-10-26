@@ -1,47 +1,59 @@
-<% if @carts.length.zero? %>
-  <div class="d-flex justify-content-center">
-    <p class="display-5 text-muted">
-    <%= image_tag 'img/shopping.gif', :alt=> "" %>Your Cart is Empty</p>
-  </div>
-<% else %>
-<div class="container">
-  <div class="row justify-content-sm-center">
-    <div class="col col-md-2">Subtotal:</div>
-    <div class="col col-md-2 bi bi-currency-yen"><td><%= @sub_total %></td></div>
-  </div>
-</div>
-<% @carts.each do |cart| %>
-<div class="d-flex justify-content-center m-3">
-  <div class="card blist-success mb-3" style="max-width: 540px; background-color: #cbd5e0;">
-    <div class="row g-0">
-      <div class="col-md-4">
-        <%= image_tag("img/#{cart[:image]}", :class=> "img-fluid rounded-start", :alt=> "") %>
+<%= form_with url: create_carts_path, local: true do |f| %>
+  <% if @carts.length.zero? %>
+    <div class="d-flex justify-content-center">
+      <p class="display-5 text-muted">
+      <%= image_tag 'img/shopping.gif', :alt=> "" %>Your Cart is Empty</p>
+    </div>
+  <% else %>
+    <div class="container">
+      <div class="row justify-content-sm-center">
+        <div class="col col-md-3">Subtotal:</div>
+        <div class="col col-md-2 bi bi-currency-yen"><td><%= @sub_total %></td></div>
       </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <table class="table">
-            <tbody>
-              <tr>
-                <td>Book_Title:</td>
-                <td><%= cart[:book_title] %></td>
-                <%= hidden_field :book_id, value: cart[:book_id] %>
-              </tr>
-              <tr>
-                <td>Quantity:</td>
-                <td><%= cart[:quantity] %></td>
-                <%= hidden_field :quantity, value: cart[:quantity] %>
-              </tr>
-              <tr>
-                <td>Price:</td>
-                <td class="bi bi-currency-yen"><%= cart[:total_amount] %></td>
-              </tr>
-            </tbody>
-          </table>
-          <%= hidden_field :delivery_time, value: @delivery_time %>
+      <div class="row justify-content-sm-center">
+        <div class="col col-md-3">Delivery Time:</div>
+        <div class="col col-md-2"><td><%= @delivery_time.strftime "%A, %m/%d" %></td></div>
+      </div>
+      <div class="row justify-content-sm-center">
+        <div class="col col-md-3">Payment Method:</div>
+        <div class="col col-md-2"><td><%= f.select :payment_type, @payment, :prompt=> 'Add to Payment....' %></td></div>
+      </div>
+      <div class="row justify-content-center">
+        <%= f.submit "Processed checkout", class: "btn btn-primary col-md-5 mt-2" %>
+      </div>
+    </div>
+    <% @carts.each do |cart| %>
+    <div class="d-flex justify-content-center m-3">
+      <div class="card blist-success mb-3" style="max-width: 540px; background-color: #cbd5e0;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <%= image_tag("img/#{cart[:image]}", :class=> "img-fluid rounded-start", :alt=> "") %>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>Book_Title:</td>
+                    <td><%= cart[:book_title] %></td>
+                    <%= f.hidden_field :book_id, value: cart[:book_id] %>
+                  </tr>
+                  <tr>
+                    <td>Quantity:</td>
+                    <td><%= cart[:quantity] %></td>
+                    <%= f.hidden_field :quantity, value: cart[:quantity] %>
+                  </tr>
+                  <tr>
+                    <td>Price:</td>
+                    <td class="bi bi-currency-yen"><%= cart[:total_amount] %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-<% end %>
+    <% end %>
+  <% end %>
 <% end %>

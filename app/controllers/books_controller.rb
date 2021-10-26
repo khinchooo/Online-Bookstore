@@ -70,11 +70,14 @@ class BooksController < ApplicationController
       else
         @total_amount = (book[:price] * cart['quantity'].to_i) + book[:delivery_fee]
       end
-        @sub_total += @total_amount
+      @sub_total += @total_amount
+      @delivery_time = DateTime.now + 3.days
+      @payment = ['Debit Card', 'Credit Card(Mastercard)', 'Mobile payment', 'Bank transfer']
         @carts << {
         book_id: book[:id],
         book_title: book[:book_title],
         image: book[:image],
+        delivery_time: @delivery_time,
         total_amount: @total_amount,
         quantity: cart['quantity'],
         user_id: cart['user_id']
