@@ -12,5 +12,5 @@ Rails.application.routes.draw do
   get 'orders/:id/edit', to: 'books#edit', as: 'edit_order'
   post 'orders/:id', to:	'books#update', as: 'update_order'
   delete 'orders/:id', to: 'books#destroy', as: 'cancel_order'
-  post 'carts', to: 'books#carts', as: 'create_carts'
+  post 'create_cart', to: 'books#create_cart', as: 'create_carts'
 end

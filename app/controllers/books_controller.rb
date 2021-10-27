@@ -2,6 +2,7 @@ require 'date'
 
 class BooksController < ApplicationController
   before_action :set_params, only: [:show, :order, :checkout]
+  before_action :carts, only: [:create_cart]
   def index
     @books = Book.all.search(params[:search_value]).paginate(page: params[:page], per_page: 8)
   end
@@ -37,7 +38,6 @@ class BooksController < ApplicationController
       # save cookies
       cookies[:carts] = {
         value: JSON.generate(@carts),
-        # expires: 1.minute
         expires: 1.week
       }
       cookies[:cart_total] = @carts.length
@@ -82,6 +82,29 @@ class BooksController < ApplicationController
         quantity: cart['quantity'],
         user_id: cart['user_id']
       }
+    end
+  end
+
+  def create_cart
+    payment = Payment.new(
+      user_id: params[:user_id],
+      payment_type: params[:payment_type]
+    )
+    if payment.save
+      @carts.each do |cart|
+        Order.new(
+          user_id: cart[:user_id],
+          book_id: cart[:book_id],
+          quantity: cart[:quantity],
+          total_amount: cart[:total_amount],
+          delivery_time: cart[:delivery_time],
+          payment_id: payment[:id]
+        ).save
+      end
+      # cookies clear
+      cookies[:carts] = []
+      cookies[:cart_total] = 0
+      redirect_to carts_path
     end
   end
 
@@ -157,7 +180,6 @@ class BooksController < ApplicationController
   def destroy
     @order = Order.find(params[:id])
     @order.destroy
-
     redirect_to orders_path
   end
   

@@ -46,6 +46,9 @@
                   <tr>
                     <td>Price:</td>
                     <td class="bi bi-currency-yen"><%= cart[:total_amount] %></td>
+                    <%= f.hidden_field :total_amount, value: cart[:total_amount] %>
+                    <%= f.hidden_field :user_id, value: cart[:user_id] %>
+                    <%= f.hidden_field :delivery_time, value: @delivery_time %>
                   </tr>
                 </tbody>
               </table>
