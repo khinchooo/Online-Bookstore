@@ -107,6 +107,24 @@ class BooksController < ApplicationController
     end
   end
 
+  def cart_remove
+    # get cookies
+    @carts = []
+    cookie_carts = cookies[:carts]
+    if cookie_carts.present? && JSON.parse(cookie_carts).length > 0
+      @carts = JSON.parse(cookie_carts).find_all {|cart| cart['book_id'].to_i != params[:book_id].to_i}
+    end
+
+    # save cookies
+    cookies[:carts] = {
+      value: JSON.generate(@carts),
+      expires: 1.week
+    }
+    cookies[:cart_total] = @carts.length
+    # redierct
+    redirect_to carts_path
+  end
+
   def checkout
     @payment = Payment.new(
       user_id: current_user.id,
@@ -140,12 +158,15 @@ class BooksController < ApplicationController
       orders.quantity,
       payments.payment_type,
       users.name,
-      users.address
+      users.address,
+      books.image
     ').joins('
       INNER JOIN payments
       ON payments.id = orders.payment_id
       INNER JOIN users
       ON users.id = orders.user_id
+      INNER JOIN books
+      ON books.id = orders.book_id
     ').where(user_id: current_user.id).order('orders.created_at DESC')
   end
 
