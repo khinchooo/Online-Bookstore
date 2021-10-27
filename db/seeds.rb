@@ -13,3 +13,6 @@ Book.create(book_title: 'Vue.js Programming', image: '5.jpg', price: '3700',desc
 Book.create(book_title: 'Java Programming', image: '6.jpg', price: '3700',description: 'Put your quarantine time to good use by picking up some programming skills or spend quality time learning.',delivery_fee: 450)
 Book.create(book_title: 'Ruby Programming', image: '7.jpg', price: '3700',description: 'Put your quarantine time to good use by picking up some programming skills or spend quality time learning.',delivery_fee: 450)
 Book.create(book_title: 'Project Managemnet', image: '8.jpg', price: '3700',description: 'Put your quarantine time to good use by picking up some programming skills or spend quality time learning.',delivery_fee: 450)
+
+User.create(name: 'Khin Cho Oo', email: 'khinchooo@gmail.com', password: '123456', address: 'Kanagawa ken Tsurumi ku Teraonakadai', phone_number: '09959776754')
+User.create(name: 'Khin Cho Oo', email: 'user1@gmail.com', password: '123456', address: 'Kanagawa ken Tsurumi ku Kajiyama', phone_number: '09959776773')

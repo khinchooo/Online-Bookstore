@@ -3,15 +3,15 @@
   <div class="mt-4" style="margin-left: 40%;">
     <div class="mb-3">
       <label class="col-md-2 control-label">Quantity</label>
-      <%= f.number_field :quantity, value: @order[:quantity] %>
+      <%= f.number_field :quantity, value: @order[:quantity], class: "col-md-3" %>
     </div>
     <div class="mb-3">
       <label class="col-md-2 control-label">Payment</label>
-      <%= f.select :payment_type, @payment, {selected: @order[:payment_type]} %>
+      <%= f.select :payment_type, @payment, {selected: @order[:payment_type]}, class: "col-md-3" %>
     </div>
     <div class="mb-3">
       <label class="col-md-2 control-label">Address</label>
-      <%= f.text_field :address, value: @order[:address] %>
+      <%= f.text_field :address, value: @order[:address], class: "col-md-3" %>
     </div>
     <div class="mt-3 mx-5">
       <%= link_to 'cancel' , '/' , class: 'btn btn-primary btn-sm' %>

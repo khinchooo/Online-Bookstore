@@ -1,8 +1,8 @@
 <%= form_with url: create_carts_path, local: true do |f| %>
   <% if @carts.length.zero? %>
     <div class="d-flex justify-content-center">
-      <p class="display-5 text-muted">
-      <%= image_tag 'img/shopping.gif', :alt=> "" %>Your Cart is Empty</p>
+      <p class="display-6 text-muted">
+      <%= image_tag 'img/shopping.gif', :alt=> "" %>Your Bookstore Cart is Empty</p>
     </div>
   <% else %>
     <div class="container">
@@ -14,7 +14,7 @@
         <div class="col col-md-3">Delivery Time:</div>
         <div class="col col-md-2"><td><%= @delivery_time.strftime "%A, %m/%d" %></td></div>
       </div>
-      <div class="row justify-content-sm-center">
+      <div class="row justify-content-sm-center payment_box">
         <div class="col col-md-3">Payment Method:</div>
         <div class="col col-md-2"><td><%= f.select :payment_type, @payment, :prompt=> 'Add to Payment....' %></td></div>
       </div>
@@ -36,19 +36,15 @@
                   <tr>
                     <td>Book_Title:</td>
                     <td><%= cart[:book_title] %></td>
-                    <%= f.hidden_field :book_id, value: cart[:book_id] %>
                   </tr>
                   <tr>
                     <td>Quantity:</td>
                     <td><%= cart[:quantity] %></td>
-                    <%= f.hidden_field :quantity, value: cart[:quantity] %>
                   </tr>
                   <tr>
                     <td>Price:</td>
                     <td class="bi bi-currency-yen"><%= cart[:total_amount] %></td>
-                    <%= f.hidden_field :total_amount, value: cart[:total_amount] %>
                     <%= f.hidden_field :user_id, value: cart[:user_id] %>
-                    <%= f.hidden_field :delivery_time, value: @delivery_time %>
                   </tr>
                 </tbody>
               </table>

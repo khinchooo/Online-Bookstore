@@ -1,5 +1,4 @@
 require 'date'
-
 class BooksController < ApplicationController
   before_action :set_params, only: [:show, :order, :checkout]
   before_action :carts, only: [:create_cart]
@@ -103,7 +102,7 @@ class BooksController < ApplicationController
       end
       # cookies clear
       cookies[:carts] = []
-      cookies[:cart_total] = 0
+      cookies[:cart_total] = nil
       redirect_to carts_path
     end
   end

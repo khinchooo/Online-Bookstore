@@ -33,7 +33,7 @@
             </li>
             <li class="nav-item">
               <%= link_to 'Cart', carts_path, class: "nav-link bi bi-cart-plus text-success" %>
-              <span class="position-absolute translate-middle badge rounded-circle bg-danger", style="margin-top: -37px; margin-left: 15px;">
+              <span class="position-absolute translate-middle badge bg-light text-danger", style="margin-top: -37px; margin-left: 15px;">
                 <%= cookies[:cart_total].blank? ? '': cookies[:cart_total] %>
               </span>
             </li>
