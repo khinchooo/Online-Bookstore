@@ -1,8 +1,8 @@
 <div class="card text-center">
-  <div class="card-header">
-    <h2>Sign up</h2>
+  <div class="card-header bg-light">
+    <h3>Sign up</h3>
   </div>
-<div class="card-body">
+<div class="card-body", style="background-color: #F0FFFF">
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -39,7 +39,7 @@
     <%= f.text_field :phone_number %>
   </div>
 
-  <div class="actions">
+  <div class="actions mt-2">
     <%= f.submit "Register" %>
   </div>
 <% end %>

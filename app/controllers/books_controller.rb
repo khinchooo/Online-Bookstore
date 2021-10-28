@@ -100,6 +100,19 @@ class BooksController < ApplicationController
           payment_id: payment[:id]
         ).save
       end
+      # index = 0
+      # books = Book.find_by(id: params[:book_id])
+      # books.each do |book|
+      #   Order.new(
+      #     book_id: book['book_id'],
+      #     quantity: params[:quantity],
+      #     total_amount: params[:total_amount],
+      #     user_id: params[:user_id],
+      #     delivery_time: params[:delivery_time],
+      #     payment_id: payment[:id]
+      #   ).save
+      # end
+      # index += 1
       # cookies clear
       cookies[:carts] = []
       cookies[:cart_total] = nil

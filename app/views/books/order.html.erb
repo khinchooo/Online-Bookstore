@@ -1,11 +1,11 @@
 <div class="d-flex justify-content-center">
-  <h1>Add Payment</h1>
+  <h3 class="text-center">Add Payment</h3>
 </div>
 <%= form_with scope: :do_order, url: create_checkout_path, local: true do |f| %>
   <div class="d-flex justify-content-center m-3">
     <%= image_tag("img/#{@book.image}", :alt=> "") %>
   </div>
-  <table class="table d-flex justify-content-center">
+  <table class="table d-flex justify-content-center border-bottom-width-0">
     <tbody>
       <tr>
         <td>Book Title:</td>
@@ -25,9 +25,9 @@
       <td>
         <% if @quantity.to_i> 2 %>
           FREE
-        <% else %>
-          <%= @book.delivery_fee %>
-        <% end %>
+          <% else %>
+            <%= @book.delivery_fee %>
+              <% end %>
       </td>
       </tr>
       <tr>
@@ -48,7 +48,7 @@
   <div class="d-flex justify-content-center m-3">
     <%= f.hidden_field :order_id, value: @book[:id] %>
     <%= f.hidden_field :delivery_time, value: @delivery_time %>
-    <%= link_to "Back" , show_book_path, class: "btn btn-primary mx-3" %>
-    <%= f.submit "Go to checkout" , class: "btn btn-primary" %>
+    <%= link_to "Back", show_book_path, class: "btn btn-primary btn-md mx-3 btn_width" %>
+    <%= f.submit "Go to checkout" , class: "btn btn-primary btn-md btn_width" %>
   </div>
-<% end %>
+  <% end %>

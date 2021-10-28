@@ -1,60 +1,55 @@
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-  <nav class="navbar navbar-expand-sm navbar-light bg-light border border-success fixed-top" id="navbar">
-    <%= link_to (image_tag 'img/bookstore.png'), '/', :class=> "navbar-brand ps-4" %>
-    <%= form_tag root_path, :method => 'get' do %>
-      <%= text_field_tag :search_value, params[:search_value] %>
-      <%= submit_tag 'Search' %>
-    <% end %>
-      <button class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-             <%= link_to('Home', '/', class: "nav-link bi bi-house-door-fill text-success") %>
-          </li>
-          <% if user_signed_in? %>
+<body class="h-100 vstack">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light border border-success fixed-top", id="navbar">
+    <div class="container-fluid">
+      <%= link_to (image_tag 'img/bookstore.png'), '/', :class=> "navbar-brand ps-3" %>
+      <%= form_tag root_path, :method => 'get' do %>
+        <%= text_field_tag :search_value, params[:search_value], size: 25, placeholder: "Search" %>
+        <%= submit_tag 'Search' %>
+      <% end %>
+        <button class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <%= link_to('My Orders', orders_path, class: "nav-link bi bi-card-checklist text-success" ) %>
+              <%= link_to('Home', '/', class: "nav-link bi bi-house-door-fill text-success") %>
             </li>
-            <li class="nav-item">
-              <p class= "bi bi-person-fill text-success mt-2"><%= "Name: #{current_user.name}" %></p>
-            </li>
-            <li class="nav-item">
-            <% if cookies[:cart_total].to_i.zero? %>
-              <%= link_to 'Cart', carts_path, class: "nav-link bi bi-cart-plus text-success" %>
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to('My Orders', orders_path, class: "nav-link bi bi-card-checklist text-success" ) %>
+              </li>
+              <li class="nav-item">
+                <p class= "bi bi-person-fill text-success mt-2"><%= "Name: #{current_user.name}" %></p>
+              </li>
+              <li class="nav-item">
+              <% if cookies[:cart_total].to_i.zero? %>
+                <%= link_to 'Cart', carts_path, class: "nav-link bi bi-cart-plus text-success" %>
+              <% else %>
+                <%= link_to 'Cart', carts_path, class: "nav-link bi bi-cart-plus text-success" %>
+                <span class="position-absolute translate-middle badge rounded-circle bg-danger", style="margin-top: -37px; margin-left: 15px;">
+                  <%= cookies[:cart_total] %>
+                </span>
+              <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Logout', '/users/sign_out', method: :delete, class: "nav-link bi bi-box-arrow-right text-success" %>
+              </li>
             <% else %>
-              <%= link_to 'Cart', carts_path, class: "nav-link bi bi-cart-plus text-success" %>
-              <span class="position-absolute translate-middle badge rounded-circle bg-danger", style="margin-top: -37px; margin-left: 15px;">
-                <%= cookies[:cart_total] %>
-              </span>
+              <li class="nav-item">
+                <%= link_to 'Create Account', '/users/sign_up', class: "nav-link bi bi-person-lines-fill text-success" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Login' , '/users/sign_in', class: "nav-link bi bi-box-arrow-in-right text-success" %>
+              </li>
             <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Logout', '/users/sign_out', method: :delete, class: "nav-link bi bi-box-arrow-right text-success" %>
-            </li>
-          <% else %>
-            <li class="nav-item">
-              <%= link_to 'Create Account', '/users/sign_up', class: "nav-link bi bi-person-lines-fill text-success" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Login' , '/users/sign_in', class: "nav-link bi bi-box-arrow-in-right text-success" %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+          </ul>
+        </div>
     </div>
   </nav>
 </body>
-</html>

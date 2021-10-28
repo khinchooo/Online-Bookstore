@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Book.create(book_title: 'Python Programming', image: '1.jpg', price: '3700',description: 'Put your quarantine time to good use by picking up some programming skills or spend quality time learning.',delivery_fee: 450)
 Book.create(book_title: 'Javascript Quick Steps', image: '2.jpg', price: '5400',description: 'Put your quarantine time to good use by picking up some programming skills or spend quality time learning.',delivery_fee: 500)
-Book.create(book_title: 'C# Quick Steps', image: '3.jpg', price: '4500',description: 'Put your quarantine time to good use by picking up some programming skills or spend quality time learning.',delivery_fee: 420)
+Book.create(book_title: 'C# In Quick Steps Guide ', image: '3.jpg', price: '4500',description: 'Put your quarantine time to good use by picking up some programming skills or spend quality time learning.',delivery_fee: 420)
 Book.create(book_title: 'Cyber Security learning', image: '4.jpg', price: '5700',description: 'Put your quarantine time to good use by picking up some programming skills or spend quality time learning.',delivery_fee: 450)
 Book.create(book_title: 'Vue.js Programming', image: '5.jpg', price: '3500',description: 'Put your quarantine time to good use by picking up some programming skills or spend quality time learning.',delivery_fee: 500)
 Book.create(book_title: 'Java Programming', image: '6.jpg', price: '6000',description: 'Put your quarantine time to good use by picking up some programming skills or spend quality time learning.',delivery_fee: 420)

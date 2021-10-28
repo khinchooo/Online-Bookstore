@@ -28,12 +28,16 @@
         <div class="row g-0">
           <div class="col-md-4">
             <%= image_tag("img/#{cart[:image]}", :class=> "img-fluid rounded-start", :alt=> "") %>
+            <%= f.hidden_field :book_id, value: cart[:book_id] %>
           </div>
           <div class="col-md-8">
             <div class="card-body">
               <h4 class="card-title"><%= cart[:book_title] %></h4>
+              <%= f.hidden_field :book_title, value: cart[:book_title] %>
               <p class="card-text bi bi-currency-yen font-weight-bold"><%= cart[:total_amount] %></p>
+              <%= f.hidden_field :total_amount, value: cart[:total_amount] %>
               <%= f.hidden_field :user_id, value: cart[:user_id] %>
+              <%= f.hidden_field :delivery_time, value: cart[:delivery_time] %>
               <p class="card-text"><%= f.number_field :quantity, value: cart[:quantity], min: 1, max: 30, style: "width:40%;", required: true %>
               <%= link_to 'Delete', "cart_remove/#{cart[:book_id]}", method: :delete, class: 'btn btn-light btn-sm mx-2' %></p>
             </div>

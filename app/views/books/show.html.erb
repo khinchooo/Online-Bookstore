@@ -1,58 +1,58 @@
-<div class="d-flex justify-content-center mt-5">
-  <%= form_with scope: :book, url: create_order_path, id: "order_form" , local: true do |f| %>
-    <h2 class="text-center fw-lighter">Book Detail</h2>
-    <div class="d-flex justify-content-center m-3">
-      <%= image_tag("img/#{@book.image}", :alt=> "") %>
-    </div>
-    <table class="table">
-      <tbody>
-        <tr>
-          <td>Book Title:</td>
-          <td>
-            <%= @book.book_title %>
-              <%= f.hidden_field :book_id, value: @book[:id] %>
-          </td>
-        </tr>
-        <tr>
-          <td>Description:</td>
-          <td>
-            <%= @book.description %>
-          </td>
-        </tr>
-        <tr>
-          <td>Delivery Date:</td>
-          <td class="bi bi-calendar-check">
-            <%= (@current_date.strftime "%A, %b %d" )+ ' ～ ' +(@delivery_time.strftime " %A, %b %d %H:%M" ) %>
-            <%= f.hidden_field :delivery_time, value: @delivery_time %>
-          </td>
-        </tr>
-        <tr>
-          <td>Shipping Fee:</td>
-          <td class="bi bi-currency-yen">
-            <%= @book.delivery_fee %>
-          </td>
-        </tr>
-        <tr>
-          <td>Price:</td>
-          <td class="bi bi-currency-yen">
-            <%= @book.price %>
-          </td>
-        </tr>
-        <td>Quantity:</td>
-        <td>
-          <%= f.number_field :quantity, value: @quantity, min: 1, max: 30, required: true, style: "width:15%;" %>
-        </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="d-flex justify-content-center m-3">
-      <%= link_to "Cancle" , root_path, class: "btn btn-primary btn-sm mx-3" %>
-      <%= f.hidden_field :add_cart, value: 0 %>
-      <%= f.button "Buy Now" , class: "btn btn-primary btn-sm", onclick: "btnBuyNow(this);"%>
-      <%= f.button "Add to Cart", class: "btn btn-primary btn-sm mx-3", onclick: "btnAddCart(this);" %>
-    </div>
-    <% end %>
+<div class="d-flex justify-content-center", style="margin-top: -6px;">
+  <h3 class="text-center">Show Book Detail</h3>
 </div>
+<%= form_with scope: :book, url: create_order_path, id: "order_form" , local: true do |f| %>
+  <div class="d-flex justify-content-center m-3">
+    <%= image_tag("img/#{@book.image}", :alt=> "") %>
+  </div>
+  <table class="table d-flex justify-content-center order_table">
+    <tbody>
+      <tr>
+        <td>Book Title:</td>
+        <td>
+          <%= @book.book_title %>
+            <%= f.hidden_field :book_id, value: @book[:id] %>
+        </td>
+      </tr>
+      <tr>
+        <td>Description:</td>
+        <td>
+          <%= @book.description %>
+        </td>
+      </tr>
+      <tr>
+        <td>Delivery Date:</td>
+        <td class="bi bi-calendar-check">
+          <%= (@current_date.strftime "%A, %b %d" )+ ' ～ ' +(@delivery_time.strftime " %A, %b %d %H:%M" ) %>
+          <%= f.hidden_field :delivery_time, value: @delivery_time %>
+        </td>
+      </tr>
+      <tr>
+        <td>Shipping Fee:</td>
+        <td class="bi bi-currency-yen">
+          <%= @book.delivery_fee %>
+        </td>
+      </tr>
+      <tr>
+        <td>Price:</td>
+        <td class="bi bi-currency-yen">
+          <%= @book.price %>
+        </td>
+      </tr>
+      <td>Quantity:</td>
+      <td>
+        <%= f.number_field :quantity, value: @quantity, min: 1, max: 30, required: true, style: "width:15%;" %>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center mb-5">
+    <%= f.hidden_field :add_cart, value: 0 %>
+    <%= f.button "Buy Now" , class: "btn btn-primary btn-sm btn_width", onclick: "btnBuyNow(this);"%>
+    <%= f.button "Add to Cart", class: "btn btn-primary btn-sm btn_width mx-3", onclick: "btnAddCart(this);" %>
+  </div>
+<% end %>
+
 <script>
   function btnBuyNow() {
     event.preventDefault();

@@ -1,6 +1,25 @@
 // Place all the styles related to the books controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-.payment_box #payment_type {
+.bg-color {
+  background-color: #F5F5DC;
+  min-height: 100vh;
+}
+
+.card {
+        margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */
+}
+
+.table > tbody > tr > td{
+  border-bottom-width: 0px;
+}
+
+.payment_box #payment_type #do_order_payment_type {
   width: 100%;
+}
+
+.btn_width{
+  min-width: 12%;
 }
