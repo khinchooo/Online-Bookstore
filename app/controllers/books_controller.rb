@@ -161,11 +161,11 @@ class BooksController < ApplicationController
       users.address,
       books.image
     ').joins('
-      INNER JOIN payments
+      LEFT JOIN payments
       ON payments.id = orders.payment_id
-      INNER JOIN users
+      LEFT JOIN users
       ON users.id = orders.user_id
-      INNER JOIN books
+      LEFT JOIN books
       ON books.id = orders.book_id
     ').where(user_id: current_user.id).order('orders.created_at DESC')
   end
@@ -199,6 +199,7 @@ class BooksController < ApplicationController
 
   def destroy
     @order = Order.find(params[:id])
+
     @order.destroy
     redirect_to orders_path
   end

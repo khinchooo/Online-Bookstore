@@ -32,10 +32,14 @@
               <p class= "bi bi-person-fill text-success mt-2"><%= "Name: #{current_user.name}" %></p>
             </li>
             <li class="nav-item">
+            <% if cookies[:cart_total].to_i.zero? %>
+              <%= link_to 'Cart', carts_path, class: "nav-link bi bi-cart-plus text-success" %>
+            <% else %>
               <%= link_to 'Cart', carts_path, class: "nav-link bi bi-cart-plus text-success" %>
               <span class="position-absolute translate-middle badge rounded-circle bg-danger", style="margin-top: -37px; margin-left: 15px;">
-                <%= cookies[:cart_total].blank? ? '': cookies[:cart_total] %>
+                <%= cookies[:cart_total] %>
               </span>
+            <% end %>
             </li>
             <li class="nav-item">
               <%= link_to 'Logout', '/users/sign_out', method: :delete, class: "nav-link bi bi-box-arrow-right text-success" %>

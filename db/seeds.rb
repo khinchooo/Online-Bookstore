@@ -23,4 +23,4 @@ Book.create(book_title: 'Spring Boot Programming', image: 'spring_boot.jpg', pri
 Book.create(book_title: 'VB.Net Book', image: 'VB.Net.jpg', price: '3400',description: 'Put your quarantine time to good use by picking up some programming skills or spend quality time learning.',delivery_fee: 420)
 
 User.create(name: 'Khin Cho Oo', email: 'khinchooo@gmail.com', password: '123456', address: 'Kanagawa ken Tsurumi ku Teraonakadai', phone_number: '09959776754')
-User.create(name: 'Khin Cho Oo', email: 'user1@gmail.com', password: '123456', address: 'Kanagawa ken Tsurumi ku Kajiyama', phone_number: '09959776773')
+User.create(name: 'user1', email: 'user1@gmail.com', password: '123456', address: 'Kanagawa ken Tsurumi ku Kajiyama', phone_number: '09959776773')
