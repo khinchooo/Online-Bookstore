@@ -22,7 +22,7 @@ class BooksController < ApplicationController
     @quantity = @param_data[:quantity]
 
     # check add_cart
-    if @param_data[:add_cart].to_i == 1
+    if @param_data[:add_cart].to_i == 1 && user_signed_in?
       # save cookies
       @carts = []
       cookie_carts = cookies[:carts]
@@ -94,7 +94,7 @@ class BooksController < ApplicationController
         Order.new(
           user_id: cart[:user_id],
           book_id: cart[:book_id],
-          quantity: cart[:quantity],
+          quantity: params[:quantity],
           total_amount: cart[:total_amount],
           delivery_time: cart[:delivery_time],
           payment_id: payment[:id]

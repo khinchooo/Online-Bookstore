@@ -24,31 +24,18 @@
     </div>
     <% @carts.each do |cart| %>
     <div class="d-flex justify-content-center m-3">
-      <div class="card blist-success mb-3" style="max-width: 540px; background-color: #cbd5e0;">
+      <div class="card mb-3" style="max-width: 500px; background-color: #cbd5e0;">
         <div class="row g-0">
           <div class="col-md-4">
             <%= image_tag("img/#{cart[:image]}", :class=> "img-fluid rounded-start", :alt=> "") %>
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <td>Book_Title:</td>
-                    <td><%= cart[:book_title] %></td>
-                  </tr>
-                  <tr>
-                    <td>Quantity:</td>
-                    <td><%= cart[:quantity] %></td>
-                  </tr>
-                  <tr>
-                    <td>Price:</td>
-                    <td class="bi bi-currency-yen"><%= cart[:total_amount] %></td>
-                    <%= f.hidden_field :user_id, value: cart[:user_id] %>
-                  </tr>
-                </tbody>
-              </table>
-              <%= link_to 'Remove', "cart_remove/#{cart[:book_id]}", method: :delete, class: 'btn btn-primary btn-sm mx-2' %>
+              <h4 class="card-title"><%= cart[:book_title] %></h4>
+              <p class="card-text bi bi-currency-yen font-weight-bold"><%= cart[:total_amount] %></p>
+              <%= f.hidden_field :user_id, value: cart[:user_id] %>
+              <p class="card-text"><%= f.number_field :quantity, value: cart[:quantity], min: 1, max: 30, style: "width:40%;", required: true %>
+              <%= link_to 'Delete', "cart_remove/#{cart[:book_id]}", method: :delete, class: 'btn btn-light btn-sm mx-2' %></p>
             </div>
           </div>
         </div>
