@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   delete 'orders/:id', to: 'books#destroy', as: 'cancel_order'
   delete 'cart_remove/:book_id', to: 'books#cart_remove', as: 'cart_remove'
   post 'create_cart', to: 'books#create_cart', as: 'create_carts'
+  get 'complete', to: 'books#complete', as: 'complete'
 end

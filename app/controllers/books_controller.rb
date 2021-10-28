@@ -103,7 +103,7 @@ class BooksController < ApplicationController
       # cookies clear
       cookies[:carts] = []
       cookies[:cart_total] = nil
-      redirect_to carts_path
+      redirect_to complete_path
     end
   end
 
@@ -203,6 +203,9 @@ class BooksController < ApplicationController
     @order.destroy
     redirect_to orders_path
   end
+
+  def complete; end
+  
   
   def set_params
     @book = Book.find(params[:id])

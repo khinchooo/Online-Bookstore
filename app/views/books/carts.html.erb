@@ -19,7 +19,7 @@
         <div class="col col-md-2"><td><%= f.select :payment_type, @payment, :prompt=> 'Add to Payment....' %></td></div>
       </div>
       <div class="row justify-content-center">
-        <%= f.submit "Processed checkout", class: "btn btn-primary col-md-5 mt-2" %>
+        <%= f.submit 'Proceed to checkout  ('+ cookies[:cart_total] +'items)', class: "btn btn-primary col-md-5 mt-2" %>
       </div>
     </div>
     <% @carts.each do |cart| %>
