@@ -155,8 +155,10 @@ class BooksController < ApplicationController
       ).save
 
       # redierct
-      redirect_to orders_path
+      flash.now[:notice] = "Successful order and payment create."
+      redirect_to orders_path 
     else
+      flash.now[:alert] = "Create failed!"
       render :order
     end
   end
@@ -205,16 +207,18 @@ class BooksController < ApplicationController
     @order.user[:address] = params[:address]
     if @order.save && @order.payment.save && @order.user.save
       redirect_to orders_path
+      flash.now[:notice] = "Successful update!"
     else
+      flash.now[:alert] = "Update failed!"
       render :edit
     end
   end
 
   def destroy
     @order = Order.find(params[:id])
-
     @order.destroy
-    redirect_to orders_path
+      flash[:notice] = "Order deletion completed successfully."
+      redirect_to orders_path
   end
 
   def complete; end

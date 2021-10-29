@@ -1,24 +1,22 @@
 <section class="bg-color">
-<div class="row">
-  <% @books.each do |book| %>
-  <div class="col-sm-3 mb-4">
-    <div class="card">
-      <%= image_tag("img/#{book.image}", :alt=> "", class: "card-img-top", :style=> "height:250px;") %>
-        <p class="text-center">
-          <%= book.book_title %>
-        </p>
-        <p class="text-center bi bi-currency-yen">
-          <%= book.price %>
-        </p>
-        <%= link_to 'Buy' , show_book_path(book) , class: "btn btn-success btn-sm rounded-0" %>
-    </div>
+  <div class="row">
+    <% @books.each do |book| %>
+      <div class="col-sm-3 mb-4">
+        <div class="card">
+          <%= image_tag("img/#{book.image}", :alt=> "", class: "card-img-top", :style=> "height:320px;") %>
+            <p class="text-center">
+              <%= book.book_title %>
+            </p>
+            <p class="text-center bi bi-currency-yen">
+              <%= book.price %>
+            </p>
+            <%= link_to 'Buy' , show_book_path(book) , class: "btn btn-success btn-sm rounded-0" %>
+        </div>
+      </div>
+      <% end %>
   </div>
-  <% end %>
-</div>
-<div class="pagination justify-content-center">
-  <%= will_paginate @books %>
-</div>
-</div>
+  <div class="pagination justify-content-center">
+    <%= will_paginate @books %>
+  </div>
+  </div>
 </section>
-
-
